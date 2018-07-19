@@ -2,6 +2,19 @@
 
 namespace QMathLib
 {
+    public class Point2D
+    {
+        public double x, y;
+        
+        public Point2D() { }
+        public Point2D(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        
+    }
+
     public static class Quadratic
     {
         public static double Discriminant(double a, double b, double c)
@@ -24,6 +37,13 @@ namespace QMathLib
 
             return x;
         }
+
+        public static Point2D Extreme(double a, double b, double c)
+        {
+            double x = -b / (2 * a);
+            double y = a * x * x + b * x + c;
+            return new Point2D(x, y);
+        }
     }
 
     public class Program
@@ -35,16 +55,19 @@ namespace QMathLib
             double[] ys = Quadratic.Roots(6, 7, -3);
 
 
-            Console.WriteLine("x1 = {0}, x2 = {1}", xs[0], xs[1]);
-            Console.WriteLine();
+            Console.WriteLine("x1 = {0}, x2 = {1}\n", xs[0], xs[1]);
+
             if (ys != null)
-                Console.WriteLine("x1 = {0}, x2 = {1}", ys[0], ys[1]);
-            Console.WriteLine();
+                Console.WriteLine("x1 = {0}, x2 = {1}\n", ys[0], ys[1]);
 
             double[] zs = Quadratic.Roots(10, -1, -2);
             if (zs != null)
-                Console.WriteLine("x1 = {0}, x2 = {1}", zs[0], zs[1]);
+                Console.WriteLine("x1 = {0}, x2 = {1}\n", zs[0], zs[1]);
 
+            Point2D pt = Quadratic.Extreme(5, 6, 1);
+            Console.WriteLine("x = {0}, y = {1}\n", pt.x, pt.y);
+
+            // prevent closing of terminal when started from IDE/double-clicked in Windows
             Console.ReadLine();
         }
     }
