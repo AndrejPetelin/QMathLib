@@ -46,6 +46,49 @@ namespace QMathLib
         }
     }
 
+    /**
+     * Solve scalene triangle with three arguments
+     */
+    public static class Triangle
+    {
+        public static class ABC
+        {
+            public static double Alpha(double a, double b, double c)
+            {
+                return Math.Acos((b * b + c * c - a * a) / (2 * b * c));
+            }
+
+            public static double Beta(double a, double b, double c)
+            {
+                return Math.Acos((a * a + c * c - b * b) / (2 * a * c));
+            }
+
+            public static double Gamma(double a, double b, double c)
+            {
+                return Math.Acos((a * a + b * b - c * c) / (2 * a * b));
+            }
+        }
+
+
+        public static class ABGamma
+        {
+            public static double C(double a, double b, double gamma)
+            {
+                return Math.Sqrt(a * a + b * b - 2 * a * b * Math.Cos(gamma));
+            }
+
+            public static double Alpha(double a, double b, double gamma)
+            {
+                return Math.Atan(a * Math.Sin(gamma) / (b - a * Math.Cos(gamma)));
+            }
+
+            public static double Beta(double a, double b, double gamma)
+            {
+                return Math.Atan(b * Math.Sin(gamma) / (a - b * Math.Cos(gamma)));
+            }
+        }
+    }
+
     public class Program
     {
         static void Main(string[] args)
