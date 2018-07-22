@@ -51,6 +51,16 @@ namespace QMathLib
      */
     public static class Triangle
     {
+        // functions to convert Radians to Degrees and vice versa. 
+        public static double DegToRad(double angle) 
+        {
+            return angle * Math.PI / 180;
+        }
+
+        public static double RadToDeg(double radian)
+        {
+            return radian * 180 / Math.PI;
+        }
         public static class ABC
         {
             public static double Alpha(double a, double b, double c)
@@ -87,6 +97,36 @@ namespace QMathLib
                 return Math.Atan(b * Math.Sin(gamma) / (a - b * Math.Cos(gamma)));
             }
         }
+        /* Class with methods to solve "SSA Triangles" (two sides and an angle that is 
+         * not the angle between the sides)
+         * The methods work with Radians. There's converting functions above
+         * TODO: In the calculation for alpha, Asin can give two different values (negative
+         * and positive, or x so that alpha + x = 180). Account for that. 
+         */
+        public static class ACGamma
+        {
+            public static double Alpha(double a, double c, double gamma)
+            {
+                return Math.Asin((a * Math.Sin(gamma)) / c);
+            }
+
+            public static double Beta(double a, double c, double gamma)
+            {
+                return Math.PI - (Alpha(a, c, gamma) + gamma);
+            }
+            // overload to use in case we have already calculated alpha
+            public static double Beta(double alpha, double gamma) 
+            {
+                return Math.PI - (alpha + gamma);
+            }
+
+            public static double B(double a, double c, double gamma)
+            {
+                double alpha = Alpha(a, c, gamma);
+                double beta = Beta(alpha, gamma);
+                return (Math.Sin(beta) * c) / Math.Sin(gamma);
+            }
+        }
     }
 
     public class Program
@@ -109,6 +149,14 @@ namespace QMathLib
 
             Point2D pt = Quadratic.Extreme(5, 6, 1);
             Console.WriteLine("x = {0}, y = {1}\n", pt.x, pt.y);
+
+
+            Double alpha = Triangle.ACGamma.Alpha(7.6, 12.4, Triangle.DegToRad(125));
+            Double beta = Triangle.ACGamma.Beta(7.6, 12.4, Triangle.DegToRad(125));
+            Double len = Triangle.ACGamma.B(7.6, 12.4, Triangle.DegToRad(125));
+            Console.WriteLine("Length: {0}\n", len);
+            Console.WriteLine("alpha: {0}\n", Triangle.RadToDeg(alpha));
+            Console.WriteLine("beta: {0}\n", Triangle.RadToDeg(beta));
 
             // prevent closing of terminal when started from IDE/double-clicked in Windows
             Console.ReadLine();
