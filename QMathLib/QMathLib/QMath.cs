@@ -46,13 +46,11 @@ namespace QMathLib
         }
     }
 
-    /**
-     * Solve scalene triangle with three arguments
-     */
-    public static class Triangle
+
+    public static class Tools
     {
         // functions to convert Radians to Degrees and vice versa. 
-        public static double DegToRad(double angle) 
+        public static double DegToRad(double angle)
         {
             return angle * Math.PI / 180;
         }
@@ -61,6 +59,14 @@ namespace QMathLib
         {
             return radian * 180 / Math.PI;
         }
+    }
+        
+
+    /**
+     * Solve scalene triangle with three arguments
+     */
+    public static class Triangle
+    {
         public static class ABC
         {
             public static double Alpha(double a, double b, double c)
@@ -151,12 +157,12 @@ namespace QMathLib
             Console.WriteLine("x = {0}, y = {1}\n", pt.x, pt.y);
 
 
-            Double alpha = Triangle.ACGamma.Alpha(7.6, 12.4, Triangle.DegToRad(125));
-            Double beta = Triangle.ACGamma.Beta(7.6, 12.4, Triangle.DegToRad(125));
-            Double len = Triangle.ACGamma.B(7.6, 12.4, Triangle.DegToRad(125));
+            Double alpha = Triangle.ACGamma.Alpha(7.6, 12.4, Tools.DegToRad(125));
+            Double beta = Triangle.ACGamma.Beta(7.6, 12.4, Tools.DegToRad(125));
+            Double len = Triangle.ACGamma.B(7.6, 12.4, Tools.DegToRad(125));
             Console.WriteLine("Length: {0}\n", len);
-            Console.WriteLine("alpha: {0}\n", Triangle.RadToDeg(alpha));
-            Console.WriteLine("beta: {0}\n", Triangle.RadToDeg(beta));
+            Console.WriteLine("alpha: {0}\n", Tools.RadToDeg(alpha));
+            Console.WriteLine("beta: {0}\n", Tools.RadToDeg(beta));
 
             // prevent closing of terminal when started from IDE/double-clicked in Windows
             Console.ReadLine();
